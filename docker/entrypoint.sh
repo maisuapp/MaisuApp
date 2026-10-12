@@ -14,17 +14,20 @@ until php -r "try { new PDO('mysql:host='.getenv('DB_HOST').';port='.(getenv('DB
 done
 
 # Run Laravel setup commands
-echo "🔧 Clearing and caching config..."
+echo "🔧 Configuring Laravel caches..."
+php artisan config:clear || true
+php artisan cache:clear || true
 php artisan config:cache || true
-php artisan route:cache || true
+php artisan route:cache || (echo "⚠️ Route cache skipped, running dynamic routes" && php artisan route:clear || true)
 php artisan view:cache || true
 
 # Run migrations (safe with --force in production)
 echo "📦 Running database migrations..."
-php artisan migrate --force || echo "⚠️  Migration skipped (database may not be ready yet)"
+php artisan migrate --force || echo "⚠️  Migration skipped"
 
 # Create storage link
 echo "🔗 Creating storage link..."
+rm -f public/storage 2>/dev/null || true
 php artisan storage:link || true
 
 # Configure Nginx port dynamically

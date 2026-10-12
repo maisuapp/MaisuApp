@@ -41,10 +41,10 @@ Route::group(['middleware' => 'setLocaleLang'], function () {
             Route::post('/logout', ['as' => 'post:customer:logout', 'uses' => 'Api\Auth\LogoutController@postCustomerLogout']);
 
             //make call (vo-ip call)
-            Route::post('/accessToken', ['as' => 'get:demo', 'uses' => 'Api\VoiceCallController@getAccessTokenNew']);
-            Route::post('/makeCall', ['as' => 'get:demo', 'uses' => 'Api\VoiceCallController@getMakeCallNew']);
-            Route::post('/incoming', ['as' => 'post:call_incoming', 'uses' => 'Api\VoiceCallController@getIncomingNew']);
-            Route::post('/place-call', ['as' => 'post:call_incoming', 'uses' => 'Api\VoiceCallController@getPlaceCall']);
+            Route::post('/accessToken', ['as' => 'post:customer:access_token', 'uses' => 'Api\VoiceCallController@getAccessTokenNew']);
+            Route::post('/makeCall', ['as' => 'post:customer:make_call', 'uses' => 'Api\VoiceCallController@getMakeCallNew']);
+            Route::post('/incoming', ['as' => 'post:customer:call_incoming', 'uses' => 'Api\VoiceCallController@getIncomingNew']);
+            Route::post('/place-call', ['as' => 'post:customer:place_call', 'uses' => 'Api\VoiceCallController@getPlaceCall']);
 
             Route::post('/contact-verification', ['as' => 'post:customer:contact_verification', 'uses' => 'Api\Auth\UpdateRegisterController@postCustomerContactVerification']);
             Route::post('/resend-otp-verification', ['as' => 'post:customer:resend_otp_verification', 'uses' => 'Api\Auth\UpdateRegisterController@postCustomerResendOtpVerification']);
