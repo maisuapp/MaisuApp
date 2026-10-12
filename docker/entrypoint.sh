@@ -27,6 +27,11 @@ php artisan migrate --force || echo "⚠️  Migration skipped (database may not
 echo "🔗 Creating storage link..."
 php artisan storage:link || true
 
+# Configure Nginx port dynamically
+APP_PORT=${PORT:-10000}
+echo "🌐 Configuring Nginx to listen on port ${APP_PORT}..."
+sed -i "s/__PORT__/${APP_PORT}/g" /etc/nginx/http.d/default.conf
+
 echo "✅ MaisuApp is ready!"
 
 # Start supervisor (runs Nginx + PHP-FPM)
