@@ -3,11 +3,11 @@ set -e
 
 echo "🚀 MaisuApp — Starting deployment..."
 
-# Wait for database to be available (Render MySQL add-on)
+# Wait for database to be available
 echo "⏳ Waiting for database connection..."
 max_tries=30
 count=0
-until php artisan db:monitor --databases=mysql 2>/dev/null || [ $count -ge $max_tries ]; do
+until php -r "try { new PDO('mysql:host='.getenv('DB_HOST').';port='.(getenv('DB_PORT')?:'3306').';dbname='.getenv('DB_DATABASE'), getenv('DB_USERNAME'), getenv('DB_PASSWORD')); exit(0); } catch (Exception \$e) { exit(1); }" 2>/dev/null || [ $count -ge $max_tries ]; do
     sleep 2
     count=$((count + 1))
     echo "  Attempt $count/$max_tries..."

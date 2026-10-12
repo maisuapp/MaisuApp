@@ -33,15 +33,27 @@ class AppServiceProvider extends ServiceProvider
             );
             $view->with($data);
         });
-        $lang_constant= LanguageConstant::query()->select()->groupBy('constant_name')->get()->keyBy('constant_name')->toArray();
-        config(['global.lang_constant' => $lang_constant]);
+        try {
+            if (Schema::hasTable('language_constant')) {
+                $lang_constant = LanguageConstant::query()->select()->groupBy('constant_name')->get()->keyBy('constant_name')->toArray();
+                config(['global.lang_constant' => $lang_constant]);
+            }
+        } catch (\Throwable $e) {
+            // DB not ready or running during build
+        }
 
         $get_host = request()->getHost();
-        //$this->domain = preg_replace("/[\s_\-\.]/", "-",$get_host);
-        $this->chat_replace_domain = preg_replace("/[\s_\-\.]/", "-",$get_host);
+        $this->chat_replace_domain = preg_replace("/[\s_\-\.]/", "-", $get_host);
 
-        $this->general_settings = GeneralSettings::query()->first();
-        view()->composer('*',function($view) {
+        try {
+            if (Schema::hasTable('general_settings')) {
+                $this->general_settings = GeneralSettings::query()->first();
+            }
+        } catch (\Throwable $e) {
+            // DB not ready or running during build
+        }
+
+        view()->composer('*', function($view) {
             $view->with('general_settings', $this->general_settings);
             $view->with('chat_replace_domain', $this->chat_replace_domain);
         });

@@ -21,6 +21,7 @@ FROM php:8.1-fpm-alpine
 RUN apk add --no-cache \
     nginx \
     supervisor \
+    gettext \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
@@ -57,7 +58,7 @@ COPY --from=composer-deps /app/vendor ./vendor
 
 # Install composer & generate autoload
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-RUN composer dump-autoload --optimize --no-dev
+RUN composer dump-autoload --optimize --no-dev --no-scripts
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
