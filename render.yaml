@@ -52,3 +52,7 @@ services:
         value: "120"
       - key: PORT
         value: "10000"
+      - key: STRIPE_KEY
+        value: pk_live_51Nckp8JAA5Presiyci5gNRJnx7XesNb9oqtXgYzQvlm7bcRZB3kXPmMl8BUFYkVEo0xff12go04mMOsQBV02ypsu00QOXGIVRJ
+      - key: STRIPE_SECRET
+        sync: false

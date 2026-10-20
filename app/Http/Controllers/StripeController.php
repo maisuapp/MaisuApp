@@ -27,14 +27,23 @@ class StripeController extends Controller
         $this->on_demand_service_id_array = $service_cat;
         $this->settings = request()->get("general_settings");
     }
+
+    private function getStripeApiKey()
+    {
+        $settings = request()->get("general_settings");
+        $key = null;
+        if ($settings) {
+            $key = ($settings->is_stripe_sandbox == 1) ? $settings->stripe_key : $settings->stripe_sandbox_key;
+        }
+        if (empty($key)) {
+            $key = config('services.stripe.secret') ?: env('STRIPE_SECRET');
+        }
+        return $key;
+    }
+
     public function paymentStripe($amount,$currency,$name,$order_no)
     {
-        $settings =  request()->get("general_settings");
-        if($settings->is_stripe_sandbox == 1){
-            $key =  $settings->stripe_key;
-        }else{
-            $key =  $settings->stripe_sandbox_key;
-        }
+        $key = $this->getStripeApiKey();
         Stripe::setApiKey($key);
 
         if($currency == "JPY"){
@@ -56,7 +65,7 @@ class StripeController extends Controller
                 ]],
                 'client_reference_id'=>$order_no,
                 'mode' => 'payment',
-                'success_url' => 'https://www.maisuapp.jp/stripe-success?session_id={CHECKOUT_SESSION_ID}',
+                'success_url' => url('/stripe-success?session_id={CHECKOUT_SESSION_ID}'),
                 'cancel_url' => route('stripe.fail',['id'=>$order_no]),
             ]);
             $response = [
@@ -74,12 +83,7 @@ class StripeController extends Controller
 
     public function stripeSuccess(Request $request)
     {
-        $settings =  request()->get("general_settings");
-        if($settings->is_stripe_sandbox == 1){
-            $key =  $settings->stripe_key;
-        }else{
-            $key =  $settings->stripe_sandbox_key;
-        }
+        $key = $this->getStripeApiKey();
         Stripe::setApiKey($key);
         $sessionId = $request->get('session_id');
 
@@ -225,12 +229,7 @@ class StripeController extends Controller
 
     public function stripeFail(Request $request)
     {
-        $settings =  request()->get("general_settings");
-        if($settings->is_stripe_sandbox == 1){
-            $key =  $settings->stripe_key;
-        }else{
-            $key =  $settings->stripe_sandbox_key;
-        }
+        $key = $this->getStripeApiKey();
         Stripe::setApiKey($key);
 
         if($request->id != ""){

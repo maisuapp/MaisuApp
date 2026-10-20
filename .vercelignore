@@ -1,0 +1,10 @@
+.dockerignore
+Dockerfile
+docker-compose.yml
+render.yaml
+docker/
+tests/
+phpunit.xml
+db_maisu_backup.sql
+composer-setup.php
+composer.phar
