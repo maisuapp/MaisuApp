@@ -260,11 +260,44 @@ Route::post('/api/ai/enhance-request', function (\Illuminate\Http\Request $reque
 Route::post('/api/ai/matchmaking', function (\Illuminate\Http\Request $request) {
     $dataFile = public_path('webapp/data/professionals.json');
     $pros = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
+    $rawPrompt = trim($request->input('prompt', ''));
+    $prompt = strtolower($rawPrompt);
+
+    if (empty($prompt)) {
+        return response()->json([
+            'status' => 1,
+            'query_analyzed' => $rawPrompt,
+            'inside_app_professionals' => $pros
+        ]);
+    }
+
+    $terms = array_filter(explode(' ', $prompt), function($w) {
+        return strlen($w) > 1 && !in_array($w, ['em', 'de', 'para', 'com', 'no', 'na', 'o', 'a', 'os', 'as', 'e', 'do', 'da']);
+    });
+
+    $matched = array_filter($pros, function($pro) use ($terms, $prompt) {
+        $name = strtolower($pro['name'] ?? '');
+        $city = strtolower($pro['city'] ?? '');
+        $category = strtolower(($pro['category'] ?? '') . ' ' . ($pro['category_pt'] ?? ''));
+        $bio = strtolower($pro['bio'] ?? '');
+        $areas = strtolower(implode(' ', $pro['area_coverage'] ?? []));
+
+        foreach ($terms as $term) {
+            if (strpos($name, $term) !== false ||
+                strpos($city, $term) !== false ||
+                strpos($category, $term) !== false ||
+                strpos($bio, $term) !== false ||
+                strpos($areas, $term) !== false) {
+                return true;
+            }
+        }
+        return false;
+    });
+
     return response()->json([
         'status' => 1,
-        'query_analyzed' => $request->input('prompt', ''),
-        'inside_app_professionals' => $pros,
-        'outside_scraped_benchmarks' => []
+        'query_analyzed' => $rawPrompt,
+        'inside_app_professionals' => !empty($matched) ? array_values($matched) : $pros
     ]);
 });
 

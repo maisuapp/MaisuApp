@@ -1,5 +1,101 @@
 [
   {
+    "id": 11,
+    "name": "Construtora & Reformas Morimoto (Chiba)",
+    "category": "Reformas, Pintura & Marcenaria",
+    "category_id": "reforma",
+    "category_pt": "Reformas, Pintura & Marcenaria",
+    "category_ja": "住宅リフォーム・クロス張替・外壁塗装",
+    "category_en": "Home Renovation & Painting",
+    "prefecture": "Chiba",
+    "city": "Chiba, Chiba",
+    "area_coverage": [
+      "Chiba",
+      "Chiba Central",
+      "Cidades Vizinhas"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.9,
+    "review_count": 67,
+    "distance_km": 3.7,
+    "languages": [
+      "Português",
+      "日本語"
+    ],
+    "phone": "043-214-XXXX",
+    "line_id": "maisu_reforma_chiba",
+    "base_price_jpy": 12000,
+    "price_range": "¥12.000 ~ ¥48.000",
+    "verified": true,
+    "license": "Licença de Construção e Reformas (Chiba-ken)",
+    "badges": [
+      "100% Verificado",
+      "Atendimento Bilíngue",
+      "Garantia de Qualidade"
+    ],
+    "bio": "Troca de papel de parede (Cloth), piso de madeira (Flooring), reforma de cozinhas, banheiros e pintura externa em toda a região de Chiba.",
+    "services": [
+      {
+        "title": "Serviço Padrão de Reformas, Pintura & Marcenaria",
+        "price_jpy": 12000
+      },
+      {
+        "title": "Atendimento Completo com Orçamento em Chiba",
+        "price_jpy": 26400
+      }
+    ],
+    "captured_at": "2026-10-22T06:55:23.165Z",
+    "source": "Varredura Regional do Japão / Chiba"
+  },
+  {
+    "id": 10,
+    "name": "Assessoria Bilíngue Sakura (Hamamatsu)",
+    "category": "Tradução & Assessoria Burocrática",
+    "category_id": "traducao",
+    "category_pt": "Tradução & Assessoria Burocrática",
+    "category_ja": "市役所通訳・ビザ申請・行政手続き",
+    "category_en": "Translation & Visa Support",
+    "prefecture": "Shizuoka",
+    "city": "Hamamatsu, Shizuoka",
+    "area_coverage": [
+      "Hamamatsu",
+      "Shizuoka Central",
+      "Cidades Vizinhas"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.9,
+    "review_count": 49,
+    "distance_km": 2.4,
+    "languages": [
+      "Português",
+      "日本語"
+    ],
+    "phone": "053-232-XXXX",
+    "line_id": "maisu_traducao_hamamatsu",
+    "base_price_jpy": 5000,
+    "price_range": "¥5.000 ~ ¥20.000",
+    "verified": true,
+    "license": "Tradutora Certificada e Assessora Administrativa (Shizuoka)",
+    "badges": [
+      "100% Verificado",
+      "Atendimento Bilíngue",
+      "Garantia de Qualidade"
+    ],
+    "bio": "Acompanhamento presencial no Shiyakusho de Hamamatsu, hospitais, imigração (Nyukan) e tradução juramentada de certidões para a comunidade.",
+    "services": [
+      {
+        "title": "Serviço Padrão de Tradução & Assessoria Burocrática",
+        "price_jpy": 5000
+      },
+      {
+        "title": "Atendimento Completo com Orçamento em Hamamatsu",
+        "price_jpy": 11000
+      }
+    ],
+    "captured_at": "2026-10-22T06:55:18.437Z",
+    "source": "Varredura Regional do Japão / Shizuoka"
+  },
+  {
     "id": 1,
     "name": "Carlos Kenji Tanaka",
     "category": "Eletricista & Manutenção",

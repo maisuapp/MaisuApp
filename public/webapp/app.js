@@ -1,6 +1,8 @@
 // MaisuApp Modern WebApp - Core Engine, Real Japan Providers & Request Dispatcher
 
 let allProfessionals = [];
+let displayedProfessionals = [];
+let currentSearchQuery = '';
 let myServiceRequests = [];
 let currentCategory = 'all';
 let currentLang = 'pt';
@@ -453,6 +455,7 @@ async function loadProfessionals() {
     const data = await res.json();
     if (data.status === 1 && data.data && data.data.length > 0) {
       allProfessionals = data.data;
+      displayedProfessionals = [...allProfessionals];
     }
   } catch (e) {
     console.warn("Utilizando catálogo local de profissionais:", e);
@@ -470,6 +473,16 @@ function selectCategory(catId) {
       pill.classList.remove('active');
     }
   });
+
+  // Se o usuário selecionou uma categoria específica, remove o banner de busca
+  const inputEl = document.getElementById('client-search-input');
+  if (inputEl && inputEl.value && catId !== 'all') {
+    inputEl.value = '';
+    const banner = document.getElementById('search-feedback-banner');
+    if (banner) banner.classList.add('hidden');
+    displayedProfessionals = [...allProfessionals];
+  }
+
   renderFilteredProfessionals();
 }
 
@@ -479,16 +492,20 @@ function renderFilteredProfessionals() {
 
   const dict = i18n[currentLang] || i18n.pt;
 
-  let list = allProfessionals;
+  let list = (displayedProfessionals && displayedProfessionals.length > 0) ? displayedProfessionals : allProfessionals;
   if (currentCategory !== 'all') {
-    list = allProfessionals.filter(p => p.category_id === currentCategory);
+    list = list.filter(p => p.category_id === currentCategory);
   }
 
-  if (list.length === 0) {
+  if (!list || list.length === 0) {
     container.innerHTML = `
-      <div class="col-span-full py-12 text-center text-slate-400">
-        <i class="fa-solid fa-magnifying-glass text-3xl mb-3 opacity-40"></i>
-        <p class="text-sm font-semibold">${currentLang === 'ja' ? '該当する専門家が見つかりませんでした。別のカテゴリーをお試しください。' : 'Nenhum profissional encontrado nesta categoria. Tente outra busca!'}</p>
+      <div class="col-span-full py-12 px-6 text-center text-slate-400 glass-card">
+        <i class="fa-solid fa-magnifying-glass text-4xl mb-3 text-purple-400 opacity-60"></i>
+        <h3 class="text-base font-bold text-white mb-1">${currentLang === 'ja' ? '該当する専門家が見つかりませんでした' : 'Nenhum profissional encontrado para esta busca'}</h3>
+        <p class="text-xs text-slate-400 max-w-md mx-auto mb-4">${currentLang === 'ja' ? '別のキーワードや地域でお試しいただくか、全カテゴリーを表示してください。' : 'Tente buscar por cidades como Hamamatsu, Nagoya, Oizumi, Tokyo, Yokohama ou especialidades como Eletricista, Tradutor, Shaken.'}</p>
+        <button onclick="clearSearchFilter()" class="btn-primary py-2 px-4 text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-rotate-left"></i> <span>${currentLang === 'ja' ? '検索をリセットして全員表示' : 'Ver Todos os Profissionais'}</span>
+        </button>
       </div>
     `;
     return;
@@ -503,7 +520,7 @@ function renderFilteredProfessionals() {
     const areas = pro.area_coverage ? pro.area_coverage.slice(0, 3).join(', ') : pro.city;
 
     return `
-      <div class="glass-card p-5 flex flex-col justify-between">
+      <div class="glass-card p-5 flex flex-col justify-between hover:border-purple-500/40 transition-all duration-200">
         <div>
           <!-- Header do Card -->
           <div class="flex items-start justify-between gap-3 mb-3">
@@ -582,11 +599,16 @@ function renderFilteredProfessionals() {
   }).join('');
 }
 
-// 4. Busca com IA e Descoberta Automática de Prestadores Reais
+// 4. Busca com IA e Descoberta Automática de Prestadores Reais em Todo o Japão
 async function executeAiSearch() {
   const inputEl = document.getElementById('client-search-input');
   const prompt = (inputEl ? inputEl.value : '').trim();
   const dict = i18n[currentLang] || i18n.pt;
+
+  if (!prompt) {
+    clearSearchFilter();
+    return;
+  }
 
   const loadingEl = document.getElementById('ai-search-loading');
   if (loadingEl) loadingEl.classList.remove('hidden');
@@ -595,23 +617,93 @@ async function executeAiSearch() {
     const res = await fetch('/api/ai/matchmaking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt: prompt || "Eletricista em Hamamatsu", location: prompt || 'Hamamatsu' })
+      body: JSON.stringify({ prompt: prompt, location: prompt })
     });
     const result = await res.json();
 
     if (loadingEl) loadingEl.classList.add('hidden');
 
     if (result.status === 1) {
+      // Resetar categoria selecionada para 'all' para não mascarar resultados
+      currentCategory = 'all';
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        if (pill.getAttribute('data-cat') === 'all') pill.classList.add('active');
+        else pill.classList.remove('active');
+      });
+
       if (result.inside_app_professionals && result.inside_app_professionals.length > 0) {
-        allProfessionals = result.inside_app_professionals;
-        renderFilteredProfessionals();
+        displayedProfessionals = result.inside_app_professionals;
+        // Adicionar novos profissionais capturados à lista mestre
+        result.inside_app_professionals.forEach(p => {
+          if (!allProfessionals.some(existing => existing.id === p.id)) {
+            allProfessionals.unshift(p);
+          }
+        });
+      } else {
+        displayedProfessionals = [];
       }
-      showToast(dict.toast_search_done, "success");
+
+      showSearchBanner(prompt, displayedProfessionals.length);
+      renderFilteredProfessionals();
+      showToast(`${displayedProfessionals.length} profissionais encontrados!`, "success");
     }
   } catch (e) {
     if (loadingEl) loadingEl.classList.add('hidden');
     console.error("Erro na busca com IA:", e);
+
+    // Fallback de busca local instantânea
+    const q = prompt.toLowerCase();
+    displayedProfessionals = allProfessionals.filter(p => {
+      return p.name.toLowerCase().includes(q) ||
+        p.city.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.bio.toLowerCase().includes(q) ||
+        (p.area_coverage && p.area_coverage.some(a => a.toLowerCase().includes(q)));
+    });
+
+    showSearchBanner(prompt, displayedProfessionals.length);
     renderFilteredProfessionals();
+  }
+}
+
+function clearSearchFilter() {
+  const inputEl = document.getElementById('client-search-input');
+  if (inputEl) inputEl.value = '';
+  const banner = document.getElementById('search-feedback-banner');
+  if (banner) banner.classList.add('hidden');
+
+  currentCategory = 'all';
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    if (pill.getAttribute('data-cat') === 'all') pill.classList.add('active');
+    else pill.classList.remove('active');
+  });
+
+  displayedProfessionals = [...allProfessionals];
+  renderFilteredProfessionals();
+}
+
+function showSearchBanner(query, count) {
+  let banner = document.getElementById('search-feedback-banner');
+  if (!banner) {
+    const parent = document.getElementById('inside-professionals-container');
+    if (parent && parent.parentNode) {
+      banner = document.createElement('div');
+      banner.id = 'search-feedback-banner';
+      parent.parentNode.insertBefore(banner, parent);
+    }
+  }
+  if (banner) {
+    banner.className = "mb-5 p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 flex items-center justify-between text-xs animate-fade-in";
+    banner.innerHTML = `
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-sparkles text-pink-400"></i>
+        <span>Exibindo <strong>${count}</strong> profissionais verificados para: <strong>"${escapeHtml(query)}"</strong></span>
+      </div>
+      <button onclick="clearSearchFilter()" class="text-pink-400 hover:text-white flex items-center gap-1 font-semibold cursor-pointer">
+        <i class="fa-solid fa-xmark"></i> Limpar busca
+      </button>
+    `;
+    banner.classList.remove('hidden');
   }
 }
 
@@ -1337,3 +1429,43 @@ function escapeHtml(string) {
   };
   return String(string).replace(/[&<>"']/g, s => entityMap[s]);
 }
+
+// 13. Inicialização Completa da Aplicação
+function initApp() {
+  initTheme();
+  initLanguage();
+  loadProfessionals();
+  loadServiceRequestsHistory();
+
+  const searchInput = document.getElementById('client-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        executeAiSearch();
+      }
+    });
+
+    // Filtro instantâneo com debounce
+    let debounceTimer = null;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      const val = e.target.value.trim();
+      if (!val) {
+        clearSearchFilter();
+        return;
+      }
+      debounceTimer = setTimeout(() => {
+        executeAiSearch();
+      }, 450);
+    });
+  }
+}
+
+// Inicializar automaticamente ao carregar
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
