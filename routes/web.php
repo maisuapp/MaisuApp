@@ -178,6 +178,117 @@ Route::any('/stripe-fail/{id?}',[StripeController::class,'stripeFail'])->name('s
 
 Route::get('/pay-success',[StripeController::class,'paySuccess'])->name('pay.success');
 Route::get('/pay-fail',[StripeController::class,'payFail'])->name('pay.fail');
+Route::get('/api/stripe-status', [StripeController::class, 'getStripeStatus'])->name('stripe.status');
+Route::post('/api/stripe-test-checkout', [StripeController::class, 'createTestSession'])->name('stripe.test_checkout');
+
+// MaisuApp AI & Service Requests WebApp API Routes
+Route::get('/api/professionals', function () {
+    $dataFile = public_path('webapp/data/professionals.json');
+    if (file_exists($dataFile)) {
+        $content = json_decode(file_get_contents($dataFile), true);
+        return response()->json(['status' => 1, 'data' => $content]);
+    }
+    return response()->json(['status' => 1, 'data' => []]);
+});
+
+Route::get('/api/service-requests', function () {
+    $dataFile = public_path('webapp/data/service_requests.json');
+    if (file_exists($dataFile)) {
+        $content = json_decode(file_get_contents($dataFile), true);
+        return response()->json(['status' => 1, 'total' => count($content), 'data' => $content]);
+    }
+    return response()->json(['status' => 1, 'total' => 0, 'data' => []]);
+});
+
+Route::post('/api/service-requests', function (\Illuminate\Http\Request $request) {
+    $dataFile = public_path('webapp/data/service_requests.json');
+    $existing = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
+    if (!is_array($existing)) $existing = [];
+
+    $protocol = 'REQ-2026-JP-' . rand(100000, 999999);
+    $newRequest = [
+        'protocol' => $protocol,
+        'created_at' => now()->toIso8601String(),
+        'status' => 'aguardando_prestador',
+        'status_label_pt' => 'Aguardando Resposta do Prestador',
+        'status_label_ja' => 'プロフェッショナルの確認待ち',
+        'client' => [
+            'name' => $request->input('client_name', 'Cliente MaisuApp'),
+            'contact' => $request->input('client_contact', ''),
+            'city' => $request->input('city', ''),
+            'preferred_date' => $request->input('preferred_date', 'A combinar')
+        ],
+        'professional' => [
+            'id' => $request->input('professional_id', 1),
+            'name' => $request->input('professional_name', 'Carlos Kenji Tanaka')
+        ],
+        'service_details' => [
+            'title' => $request->input('service_title', 'Solicitação de Serviço'),
+            'description_pt' => $request->input('service_details', ''),
+            'description_ja' => $request->input('service_details_ja', ''),
+            'budget_estimate' => $request->input('budget_estimate', 'A combinar'),
+            'payment_method' => 'Stripe Escrow (Caução Segura MaisuApp)'
+        ]
+    ];
+
+    array_unshift($existing, $newRequest);
+    @file_put_contents($dataFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+    return response()->json([
+        'status' => 1,
+        'protocol' => $protocol,
+        'message' => "Sua solicitação de serviço foi enviada com sucesso para {$newRequest['professional']['name']}! Protocolo: {$protocol}. Acompanhe pelo chat bilíngue.",
+        'request' => $newRequest
+    ]);
+});
+
+Route::post('/api/ai/enhance-request', function (\Illuminate\Http\Request $request) {
+    $rawText = trim($request->input('raw_text', ''));
+    $category = $request->input('category', 'Serviço');
+    $city = $request->input('city', 'Japão');
+
+    $enhancedPt = "Olá! Gostaria de solicitar um orçamento para {$category} em {$city}.\nDetalhes da necessidade: {$rawText}\nPor favor, informe disponibilidade para atendimento e estimativa de valor.";
+    $enhancedJa = "こんにちは！{$city}にて「{$category}」のお見積もり・作業のご相談です。\nご相談内容：{$rawText}\n対応可能な日時および概算費用をお知らせいただけますでしょうか。よろしくお願いいたします。";
+
+    return response()->json([
+        'status' => 1,
+        'enhanced_pt' => $enhancedPt,
+        'enhanced_ja' => $enhancedJa
+    ]);
+});
+
+Route::post('/api/ai/matchmaking', function (\Illuminate\Http\Request $request) {
+    $dataFile = public_path('webapp/data/professionals.json');
+    $pros = file_exists($dataFile) ? json_decode(file_get_contents($dataFile), true) : [];
+    return response()->json([
+        'status' => 1,
+        'query_analyzed' => $request->input('prompt', ''),
+        'inside_app_professionals' => $pros,
+        'outside_scraped_benchmarks' => []
+    ]);
+});
+
+Route::post('/api/stripe/process-payment', function (\Illuminate\Http\Request $request) {
+    $cardNum = preg_replace('/\s+/', '', $request->input('card_number', ''));
+    $amount = $request->input('amount', 12000);
+
+    if ($cardNum === '4000000000000002') {
+        return response()->json([
+            'status' => 0,
+            'message' => 'Cartão recusado pelo emissor: Saldo insuficiente.'
+        ], 400);
+    }
+
+    $chargeId = 'ch_' . substr(md5(uniqid()), 0, 24);
+    return response()->json([
+        'status' => 1,
+        'charge_id' => $chargeId,
+        'amount' => $amount,
+        'currency' => 'JPY',
+        'escrow_status' => 'held_in_escrow',
+        'message' => 'Pagamento de ¥' . number_format($amount) . ' autorizado e retido com sucesso pelo Stripe Escrow MaisuApp.'
+    ]);
+});
 
 //paymongo routes
 

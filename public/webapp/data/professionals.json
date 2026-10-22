@@ -1,0 +1,493 @@
+[
+  {
+    "id": 1,
+    "name": "Carlos Kenji Tanaka",
+    "category": "Eletricista & Manutenção",
+    "category_id": "eletrica",
+    "category_pt": "Eletricista & Ar-Condicionado",
+    "category_ja": "電気工事・エアコン設置・修理",
+    "category_en": "Electrician & AC Installation",
+    "prefecture": "Shizuoka",
+    "city": "Hamamatsu, Shizuoka",
+    "area_coverage": [
+      "Hamamatsu",
+      "Iwata",
+      "Kosai",
+      "Fukuroi",
+      "Kakegawa",
+      "Toyohashi"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.9,
+    "review_count": 64,
+    "distance_km": 2.4,
+    "languages": [
+      "Português",
+      "日本語 (Nativo)"
+    ],
+    "phone": "090-3849-XXXX",
+    "line_id": "carlos_denki_hmt",
+    "base_price_jpy": 5000,
+    "price_range": "¥5.000 ~ ¥18.000",
+    "verified": true,
+    "license": "Dai-Ni-Shu Denki Kouji-shi (Segunda Classe Eletricista Japão)",
+    "badges": [
+      "Top Rated",
+      "Atendimento 24h",
+      "Bilíngue Oficial"
+    ],
+    "bio": "Mais de 12 anos de experiência em instalações elétricas residenciais e industriais no Japão. Especialista em montagem, limpeza com bomba de vácuo de ar-condicionado (aircon) e troca de quadro de força.",
+    "services": [
+      {
+        "title": "Troca e Instalação de Tomadas / Disjuntores",
+        "price_jpy": 5000
+      },
+      {
+        "title": "Instalação e Limpeza de Ar-Condicionado (Aircon)",
+        "price_jpy": 12000
+      },
+      {
+        "title": "Adequação de Quadro de Força e Padrão 200V",
+        "price_jpy": 18000
+      }
+    ],
+    "captured_at": "2026-10-15T08:00:00Z",
+    "source": "MaisuApp Verified Network"
+  },
+  {
+    "id": 2,
+    "name": "Mariana Sayuri Sato",
+    "category": "Tradução & Assessoria Burocrática",
+    "category_id": "traducao",
+    "category_pt": "Tradução & Assessoria Burocrática",
+    "category_ja": "通訳・行政手続き・入管ビザ申請",
+    "category_en": "Translation & Legal Guidance",
+    "prefecture": "Aichi",
+    "city": "Nagoya, Aichi",
+    "area_coverage": [
+      "Nagoya",
+      "Toyota",
+      "Komaki",
+      "Ichinomiya",
+      "Gifu",
+      "Online em todo Japão"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    "rating": 5,
+    "review_count": 92,
+    "distance_km": 4.1,
+    "languages": [
+      "Português",
+      "日本語 (JLPT N1)",
+      "English"
+    ],
+    "phone": "052-781-XXXX",
+    "line_id": "mariana_tsuyaku_nagoya",
+    "base_price_jpy": 4000,
+    "price_range": "¥4.000 ~ ¥25.000",
+    "verified": true,
+    "license": "Intérprete Juramentada e Assessoria Documental Registrada",
+    "badges": [
+      "Super Pro",
+      "Prefeitura & Imigração",
+      "Atendimento Online"
+    ],
+    "bio": "Intérprete certificada com vasta experiência em acompanhamento presencial em Shiyakusho (prefeituras), Nyukan (Imigração de Nagoya/Tokyo), hospitais, escolas e conversão de carteira de motorista (Gaimen Menkyo).",
+    "services": [
+      {
+        "title": "Acompanhamento em Prefeitura / Shiyakusho (2h)",
+        "price_jpy": 8000
+      },
+      {
+        "title": "Tradução Juramentada de Certidões e Documentos",
+        "price_jpy": 5000
+      },
+      {
+        "title": "Assessoria Completa para Renovação / Mudança de Visto",
+        "price_jpy": 18000
+      }
+    ],
+    "captured_at": "2026-10-15T08:00:00Z",
+    "source": "MaisuApp Verified Network"
+  },
+  {
+    "id": 3,
+    "name": "Rodrigo Almeida (Oficina Shizuoka Auto)",
+    "category": "Mecânica Geral & Shaken Automotivo",
+    "category_id": "mecanica",
+    "category_pt": "Mecânica Geral & Shaken Automotivo",
+    "category_ja": "自動車整備・車検点検・板金塗装",
+    "category_en": "Auto Repair & Shaken Inspection",
+    "prefecture": "Shizuoka",
+    "city": "Hamamatsu, Shizuoka",
+    "area_coverage": [
+      "Hamamatsu",
+      "Iwata",
+      "Fukuroi",
+      "Kosai",
+      "Toyohashi"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.8,
+    "review_count": 48,
+    "distance_km": 6.8,
+    "languages": [
+      "Português",
+      "日本語 (Comercial)"
+    ],
+    "phone": "053-488-XXXX",
+    "line_id": "shizuoka_auto_service",
+    "base_price_jpy": 10000,
+    "price_range": "¥10.000 ~ ¥65.000",
+    "verified": true,
+    "license": "Oficina Mecânica Certificada Chubu Unyu-kyoku",
+    "badges": [
+      "Oficina Própria",
+      "Guincho 24h",
+      "Peças Originais"
+    ],
+    "bio": "Inspeção veicular obrigatória (Shaken), manutenção de freios, suspensão, alinhamento, troca de óleo e funilaria/pintura para carros Kei e placa branca.",
+    "services": [
+      {
+        "title": "Revisão Pré-Shaken com Laudo Completo",
+        "price_jpy": 10000
+      },
+      {
+        "title": "Pacote Shaken Carro Kei (Mão de obra e taxas)",
+        "price_jpy": 45000
+      },
+      {
+        "title": "Troca de Pastilhas de Freio e Fluido",
+        "price_jpy": 12000
+      }
+    ],
+    "captured_at": "2026-10-15T08:00:00Z",
+    "source": "MaisuApp Verified Network"
+  },
+  {
+    "id": 4,
+    "name": "Camila Takahashi",
+    "category": "Limpeza Residencial & Mudanças",
+    "category_id": "limpeza",
+    "category_pt": "Limpeza Residencial & Mudanças",
+    "category_ja": "ハウスクリーニング・退去清掃・不用品回収",
+    "category_en": "Home Cleaning & Relocation",
+    "prefecture": "Aichi",
+    "city": "Toyohashi, Aichi",
+    "area_coverage": [
+      "Toyohashi",
+      "Toyokawa",
+      "Hamamatsu",
+      "Gamagori",
+      "Shinshiro"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.9,
+    "review_count": 39,
+    "distance_km": 3.5,
+    "languages": [
+      "Português",
+      "日本語"
+    ],
+    "phone": "0532-65-XXXX",
+    "line_id": "camila_clean_japan",
+    "base_price_jpy": 6000,
+    "price_range": "¥6.000 ~ ¥28.000",
+    "verified": true,
+    "license": "Especialista Certificada em Taikyo Cleaning",
+    "badges": [
+      "Especialista Taikyo",
+      "Ágil",
+      "Ecofriendly"
+    ],
+    "bio": "Especialista em limpeza pós-mudança (Taikyo cleaning) para devolução de apartamentos sem cobranças abusivas da imobiliária. Limpeza profunda de banheiros, cozinhas, pisos e janelas.",
+    "services": [
+      {
+        "title": "Limpeza Geral de Apartamento 1DK / 2DK",
+        "price_jpy": 15000
+      },
+      {
+        "title": "Higienização Profunda de Cozinha e Banheiro",
+        "price_jpy": 9000
+      },
+      {
+        "title": "Descarte e Recolhimento de Móveis Pequenos",
+        "price_jpy": 8000
+      }
+    ],
+    "captured_at": "2026-10-15T08:00:00Z",
+    "source": "MaisuApp Verified Network"
+  },
+  {
+    "id": 5,
+    "name": "Kenzo Watanabe (Watanabe Reform K.K.)",
+    "category": "Reformas & Obras",
+    "category_id": "reforma",
+    "category_pt": "Reformas, Pintura & Marcenaria",
+    "category_ja": "住宅リフォーム・クロス張替・外壁塗装",
+    "category_en": "Home Renovation & Painting",
+    "prefecture": "Gunma",
+    "city": "Oizumi, Gunma",
+    "area_coverage": [
+      "Oizumi",
+      "Ota",
+      "Isesaki",
+      "Tatebayashi",
+      "Ashikaga",
+      "Kumagaya"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.9,
+    "review_count": 52,
+    "distance_km": 5,
+    "languages": [
+      "日本語 (Nativo)",
+      "Português (Básico/Atendimento)"
+    ],
+    "phone": "0276-62-XXXX",
+    "line_id": "watanabe_reform_gunma",
+    "base_price_jpy": 15000,
+    "price_range": "¥15.000 ~ ¥120.000",
+    "verified": true,
+    "license": "Construtor Licenciado Província de Gunma",
+    "badges": [
+      "Empresa Registrada",
+      "Garantia 5 Anos",
+      "Orçamento Grátis"
+    ],
+    "bio": "Empresa japonesa tradicional com mais de 20 anos na região de Gunma e Saitama. Troca de papel de parede (Cloth), piso de madeira (Flooring), reforma de cozinhas, banheiros e pintura externa.",
+    "services": [
+      {
+        "title": "Troca de Papel de Parede (Cloth) por cômodo",
+        "price_jpy": 25000
+      },
+      {
+        "title": "Reparo de Pisos e Portas de Correr (Fusuma/Shoji)",
+        "price_jpy": 15000
+      },
+      {
+        "title": "Pintura Impermeabilizante de Varanda / Telhado",
+        "price_jpy": 45000
+      }
+    ],
+    "captured_at": "2026-10-18T10:00:00Z",
+    "source": "Gunma Construction Directory / MaisuApp Partner"
+  },
+  {
+    "id": 6,
+    "name": "Fabio Hideki Morimoto",
+    "category": "Mudanças & Transporte Rápido",
+    "category_id": "mudancas",
+    "category_pt": "Mudanças & Transporte de Cargas",
+    "category_ja": "単身・ファミリー引越し・軽トラック配送",
+    "category_en": "Moving & Light Cargo Transport",
+    "prefecture": "Mie",
+    "city": "Suzuka, Mie",
+    "area_coverage": [
+      "Suzuka",
+      "Yokkaichi",
+      "Tsu",
+      "Kameyama",
+      "Matsusaka",
+      "Nagoya"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    "rating": 4.8,
+    "review_count": 45,
+    "distance_km": 4.8,
+    "languages": [
+      "Português",
+      "日本語"
+    ],
+    "phone": "059-382-XXXX",
+    "line_id": "morimoto_hikkoshi_mie",
+    "base_price_jpy": 8000,
+    "price_range": "¥8.000 ~ ¥45.000",
+    "verified": true,
+    "license": "Transporte de Cargas Leves Placa Preta (Kokutetsu/Unyu)",
+    "badges": [
+      "Caminhão Kei Próprio",
+      "Desmonta Móveis",
+      "Pontualidade 100%"
+    ],
+    "bio": "Mudanças residenciais para solteiros e famílias em Mie e Aichi. Montagem e desmontagem de móveis, embalagem reforçada de eletrônicos e transporte com caminhão coberto.",
+    "services": [
+      {
+        "title": "Mudança Local Solteiro (Até 15km em Mie)",
+        "price_jpy": 18000
+      },
+      {
+        "title": "Transporte de Geladeira / Máquina de Lavar Avulsa",
+        "price_jpy": 8000
+      },
+      {
+        "title": "Mudança Interestadual (Mie para Shizuoka/Gunma)",
+        "price_jpy": 38000
+      }
+    ],
+    "captured_at": "2026-10-19T09:30:00Z",
+    "source": "Comunidade Mie Brasil / MaisuApp Verified"
+  },
+  {
+    "id": 7,
+    "name": "Tokyo Express Tech (Daisuke Takahashi)",
+    "category": "TI & Suporte Técnico",
+    "category_id": "it",
+    "category_pt": "TI, Computadores & Redes Wi-Fi",
+    "category_ja": "パソコン設定・Wi-Fi環境構築・データ復旧",
+    "category_en": "IT Support & Home Networking",
+    "prefecture": "Tokyo",
+    "city": "Shinjuku, Tokyo",
+    "area_coverage": [
+      "Tokyo (23 Ku)",
+      "Yokohama",
+      "Kawasaki",
+      "Saitama",
+      "Chiba",
+      "Online"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+    "rating": 5,
+    "review_count": 78,
+    "distance_km": 1.8,
+    "languages": [
+      "日本語 (Nativo)",
+      "English (Fluent)",
+      "Português (Suporte Traduzido)"
+    ],
+    "phone": "03-5321-XXXX",
+    "line_id": "tokyo_tech_express",
+    "base_price_jpy": 7000,
+    "price_range": "¥7.000 ~ ¥30.000",
+    "verified": true,
+    "license": "Microsoft Certified Professional & CompTIA A+",
+    "badges": [
+      "Atendimento Rápido",
+      "Recuperação de Dados",
+      "Bilingual"
+    ],
+    "bio": "Suporte técnico especializado em computadores Windows e Mac, configuração de fibra óptica (NTT Hikari/SoftBank/Docomo), repetidores Wi-Fi mesh e recuperação de arquivos deletados.",
+    "services": [
+      {
+        "title": "Configuração de Roteador Wi-Fi 6 e Fibra Óptica",
+        "price_jpy": 7000
+      },
+      {
+        "title": "Formatação, Otimização e Remoção de Vírus (PC/Mac)",
+        "price_jpy": 12000
+      },
+      {
+        "title": "Recuperação de Dados de HD / SSD / Cartão de Memória",
+        "price_jpy": 18000
+      }
+    ],
+    "captured_at": "2026-10-20T11:15:00Z",
+    "source": "Tokyo Tech Network / MaisuApp Verified"
+  },
+  {
+    "id": 8,
+    "name": "Beatriz Yuri Ramos",
+    "category": "Aulas & Treinamentos",
+    "category_id": "aulas",
+    "category_pt": "Aulas de Japonês & Assessoria Escolar",
+    "category_ja": "日本語レッスン・小中学校学校対応・JLPT対策",
+    "category_en": "Japanese Tutoring & School Support",
+    "prefecture": "Kanagawa",
+    "city": "Yokohama, Kanagawa",
+    "area_coverage": [
+      "Yokohama",
+      "Kawasaki",
+      "Yamato",
+      "Tokyo",
+      "Aulas Online para todo o Japão"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    "rating": 5,
+    "review_count": 67,
+    "distance_km": 3.2,
+    "languages": [
+      "Português",
+      "日本語 (JLPT N1)",
+      "English"
+    ],
+    "phone": "045-222-XXXX",
+    "line_id": "yuri_nihongo_yokohama",
+    "base_price_jpy": 3500,
+    "price_range": "¥3.500 ~ ¥15.000",
+    "verified": true,
+    "license": "Professora Certificada de Língua Japonesa (MEXT)",
+    "badges": [
+      "Especialista JLPT N5 a N1",
+      "Suporte Escolar",
+      "Online & Presencial"
+    ],
+    "bio": "Aulas práticas de japonês para o dia a dia na fábrica, conversação para prefeitura/hospitais e preparação intensiva para o exame JLPT. Também presto assessoria e acompanhamento em reuniões escolares (Gakkou) para filhos de brasileiros.",
+    "services": [
+      {
+        "title": "Aula Individual de Japonês Prático (1 hora)",
+        "price_jpy": 3500
+      },
+      {
+        "title": "Pacote Mensal 4 Aulas + Material Didático em PDF",
+        "price_jpy": 12000
+      },
+      {
+        "title": "Acompanhamento em Reunião Escolar (Hogo-sha kai)",
+        "price_jpy": 7000
+      }
+    ],
+    "captured_at": "2026-10-21T14:00:00Z",
+    "source": "MaisuApp Educational Network"
+  },
+  {
+    "id": 9,
+    "name": "Assessoria Jurídica & Vistos Tanaka (田中法務行政書士事務所)",
+    "category": "Tradução & Assessoria Burocrática",
+    "category_id": "traducao",
+    "category_pt": "Assessoria de Vistos & Imigração",
+    "category_ja": "行政書士・入管ビザ手続き・帰化申請",
+    "category_en": "Immigration & Legal Visa Office",
+    "city": "Tokyo (Minato-ku)",
+    "prefecture": "Tokyo",
+    "area_coverage": [
+      "Tokyo",
+      "Kanagawa",
+      "Chiba",
+      "Saitama",
+      "Online"
+    ],
+    "avatar": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80",
+    "rating": 5,
+    "review_count": 88,
+    "distance_km": 2.1,
+    "languages": [
+      "Português",
+      "日本語",
+      "English"
+    ],
+    "phone": "03-3452-XXXX",
+    "base_price_jpy": 10000,
+    "price_range": "¥10.000 ~ ¥80.000",
+    "verified": true,
+    "license": "Gyouseishoshi Registrado nº 1408221",
+    "badges": [
+      "Certificado Oficial",
+      "Atendimento Bilíngue",
+      "Suporte Completo"
+    ],
+    "bio": "Escritório especializado em renovação de visto de residência permanente (Eijusha), cônjuge de japonês, vistos de negócios e naturalização. Atendimento em português e japonês.",
+    "services": [
+      {
+        "title": "Consulta Prévia de Documentação de Visto",
+        "price_jpy": 10000
+      },
+      {
+        "title": "Elaboração e Protocolo Completo no Nyukan",
+        "price_jpy": 55000
+      }
+    ],
+    "source": "Tokyo Administrative Lawyers Registry",
+    "captured_at": "2026-10-22T06:27:27.151Z",
+    "search_match_tag": "Descoberto Automaticamente via Varredura Japão"
+  }
+]

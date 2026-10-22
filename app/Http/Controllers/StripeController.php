@@ -119,7 +119,8 @@ class StripeController extends Controller
                 $temp->payment_status = 1;
                 $temp->save();
 
-                if ($settings->auto_settle_payment == 1){
+                $settings = $this->settings;
+                if ($settings && isset($settings->auto_settle_payment) && $settings->auto_settle_payment == 1){
                     if ($order_details->provider_pay_settle_status == 0 && $order_details->payment_status == 1) {
                         try {
                             $get_last_transaction = UserWalletTransaction::query()
@@ -274,4 +275,91 @@ class StripeController extends Controller
         return view('failed');
     }
 
+    /**
+     * Retorna o status de integracao com o Stripe para o WebApp
+     */
+    public function getStripeStatus()
+    {
+        $key = $this->getStripeApiKey();
+        $pubKey = config('services.stripe.key') ?: env('STRIPE_KEY');
+        $isLive = strpos($pubKey ?? '', 'pk_live_') === 0;
+
+        return response()->json([
+            'status' => 1,
+            'configured' => !empty($key) && !empty($pubKey),
+            'mode' => $isLive ? 'live' : 'test',
+            'public_key' => $pubKey ? substr($pubKey, 0, 12) . '...' . substr($pubKey, -4) : null,
+            'has_secret' => !empty($key),
+            'supported_currencies' => ['JPY', 'BRL', 'USD', 'EUR'],
+            'test_cards' => [
+                ['number' => '4242 •••• •••• 4242', 'brand' => 'Visa', 'type' => 'Aprovado Imediato', 'cvc' => '123', 'exp' => '12/28'],
+                ['number' => '4000 •••• •••• 0027', 'brand' => 'Visa', 'type' => 'Autenticação 3D Secure', 'cvc' => '123', 'exp' => '12/28'],
+                ['number' => '4000 •••• •••• 0002', 'brand' => 'Visa', 'type' => 'Recusado (Fundos Insuficientes)', 'cvc' => '123', 'exp' => '12/28']
+            ]
+        ]);
+    }
+
+    /**
+     * Endpoint para criar sessao de checkout de teste pelo WebApp
+     */
+    public function createTestSession(Request $request)
+    {
+        $amount = $request->input('amount', 5000);
+        $currency = strtoupper($request->input('currency', 'JPY'));
+        $name = $request->input('service_name', 'Serviço MaisuApp');
+        $orderNo = 'TEST-' . time();
+
+        $key = $this->getStripeApiKey();
+
+        if (empty($key) || strpos($key, 'mk_') === 0) {
+            // Modo simulacao assistida caso chave real nao esteja configurada
+            return response()->json([
+                'status' => 1,
+                'mode' => 'sandbox_simulation',
+                'order_no' => $orderNo,
+                'amount' => $amount,
+                'currency' => $currency,
+                'service_name' => $name,
+                'simulated_checkout_url' => url('/stripe-success?session_id=cs_test_mock_' . uniqid()),
+                'message' => 'Sessão simulada com sucesso (Stripe Test Sandbox)'
+            ]);
+        }
+
+        Stripe::setApiKey($key);
+
+        try {
+            $unitAmount = ($currency === 'JPY') ? intval($amount) : intval($amount * 100);
+
+            $checkout_session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => strtolower($currency),
+                        'product_data' => [
+                            'name' => $name,
+                            'description' => 'Contratação via MaisuApp Web'
+                        ],
+                        'unit_amount' => $unitAmount,
+                    ],
+                    'quantity' => 1,
+                ]],
+                'client_reference_id' => $orderNo,
+                'mode' => 'payment',
+                'success_url' => url('/pay-success?session_id={CHECKOUT_SESSION_ID}&order_no=' . $orderNo),
+                'cancel_url' => url('/pay-fail?order_no=' . $orderNo),
+            ]);
+
+            return response()->json([
+                'status' => 1,
+                'redirect_url' => $checkout_session->url,
+                'session_id' => $checkout_session->id,
+                'order_no' => $orderNo
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+                'message' => $e->getMessage()
+            ], 400);
+        }
+    }
 }

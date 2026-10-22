@@ -1,0 +1,55 @@
+[
+  {
+    "protocol": "REQ-2026-JP-536236",
+    "created_at": "2026-10-22T06:27:12.995Z",
+    "status": "aguardando_prestador",
+    "status_label_pt": "Aguardando Resposta do Prestador",
+    "status_label_ja": "プロフェッショナルの確認待ち",
+    "client": {
+      "name": "Lucas Mendes",
+      "contact": "080-9988-7766",
+      "city": "Hamamatsu, Shizuoka",
+      "preferred_date": "S�bado �s 10:00"
+    },
+    "professional": {
+      "id": 1,
+      "name": "Carlos Kenji Tanaka"
+    },
+    "service_details": {
+      "title": "Troca e Manuten��o de Ar Condicionado Daikin",
+      "description_pt": "Gostaria de agendar a troca do aparelho no quarto principal e fazer a limpeza preventiva dos filtros.",
+      "description_ja": "??????????????????????????????????????10????????????",
+      "budget_estimate": "�12.000",
+      "payment_method": "Stripe Escrow (Caução Segura MaisuApp)"
+    }
+  },
+  {
+    "protocol": "REQ-2026-JP-849201",
+    "created_at": "2026-10-22T04:30:00Z",
+    "status": "aguardando_prestador",
+    "status_label_pt": "Aguardando Resposta do Prestador",
+    "status_label_ja": "プロフェッショナルの確認待ち",
+    "client": {
+      "name": "Marcelo Kenji",
+      "contact": "080-1234-5678",
+      "preferred_channel": "WhatsApp / Telefone",
+      "city": "Hamamatsu",
+      "prefecture": "Shizuoka",
+      "address": "Naka-ku, Hamamatsu-shi, Shizuoka"
+    },
+    "professional": {
+      "id": 1,
+      "name": "Carlos Kenji Tanaka",
+      "category": "Eletricista & Manutenção",
+      "city": "Hamamatsu, Shizuoka"
+    },
+    "service_details": {
+      "title": "Instalação de Ar-Condicionado (Aircon)",
+      "description": "Preciso de instalação padrão de um ar condicionado novo de 2.2kW na sala e verificação de tomada 100V. Gostaria de agendamento para este sábado de manhã.",
+      "description_ja_translated": "リビングに2.2kWの新品エアコン標準設置と100V専用コンセントの確認をお願いします。今週の土曜日午前中の訪問を希望しております。",
+      "preferred_date": "2026-10-24T10:00:00Z",
+      "budget_estimate": "¥12.000",
+      "payment_method": "Stripe Escrow (Caução Segura)"
+    }
+  }
+]
